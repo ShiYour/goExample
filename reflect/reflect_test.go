@@ -41,7 +41,7 @@ type mockObjC struct {
 	AA2 *mockObjA
 }
 
-//通过发射设置字段的值
+//通过反射设置字段的值
 func Test_should_return_success_when_set_field_value(t *testing.T) {
 	objA := &mockObjA{Name: "11", Age: 10}
 	v := reflect.ValueOf(objA).Elem()
@@ -109,8 +109,8 @@ func Test_should_return_success_when_set_field_value2(t *testing.T) {
 	v := reflect.ValueOf(objA).Elem()
 	fmt.Println("objA type: ", reflect.TypeOf(v.Interface()))
 
-	fmt.Println("v kind: ", reflect.TypeOf(&objA).Kind())
-	fmt.Println("field num: ", v.NumField())
+	//fmt.Println("v kind: ", reflect.TypeOf(&objA).Kind())
+	//fmt.Println("field num: ", v.NumField())
 	//字段名区分大小写，必须一样才行
 	name := v.FieldByName("Name")
 	fmt.Println("name valid: ", name.IsValid())
@@ -191,4 +191,8 @@ func Test_should_return_inf_type(t *testing.T) {
 	fieldv.Set(reflect.ValueOf(&mockObjB{Age: 10}))
 
 	fmt.Println(d.ObjB.String())
+}
+
+func Test_nil_type(t *testing.T) {
+	fmt.Println(reflect.TypeOf(nil).Kind())
 }
